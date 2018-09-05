@@ -6,7 +6,7 @@ const config = {
     },
     default: {
         SECRET: 'THETRANHP2018',
-        DATABASE: 'monodb://localhost:3000/gamerv',
+        DATABASE: 'mongodb://localhost:27017/gamerv',
         PORT: 3000
     }
 }

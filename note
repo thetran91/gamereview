@@ -1,0 +1,11 @@
+1. Khai bao engine app.engine (extname, defaultLayer, layoutsdir, partialsdir)
+2. Thiet lap engine - app.set
+3. Thiet lap cac layout 
+4. Goi cac layout vao main layout (main.hbs)
+5. Goi layout ra API
+-------------
+layout (main.hbs) la file template chung. Phan {{{body}}} cua no chua cac file template khac
+cau truc kieu header-body-footer
+-------------
+1. Tao hash cho password
+2. Tao token cho password
