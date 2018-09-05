@@ -39,7 +39,9 @@ app.get('/', (req,res)=>{
 app.get('/register', (req, res)=>{
     res.render('register');
 })
-
+app.get('/login', (req, res)=>{
+    res.render('login');
+})
 
 // POST
 app.post('/api/register',(req,res)=>{
@@ -48,12 +50,27 @@ app.post('/api/register',(req,res)=>{
         if (err) res.status(404).send(err);
         //tao token cho user dang nhap
         user.generateToken((err,user)=>{
-            if (err) res.status(404).send(err);
+            if (err) return res.status(404).send(err);
             // Luu token vao trong cookie
             res.cookie('auth', user.token).send('ok');
         })
     })
 })
+app.post('/api/login', (req, res)=>{
+    User.findOne({'email':req.body.email},(err,user)=>{
+        if (!user) return res.status(404).json({message:'Wrong Email! Please check again!'});
+        //so sanh password
+        user.comparePassword(req.body.password, function(err, isMatch){
+            if (err) throw err;
+            if (!isMatch) return res.status(404).json({message:'Incorrect Password! Please check again!'});
+            user.generateToken((err,user)=>{
+                if (err) return res.status(404).send(err);
+                // Luu token vao trong cookie
+                res.cookie('auth', user.token).send('ok');
+            })
+        })
+    })
+// PORT
 app.listen(config.PORT, ()=>{
-    console.log(`Started on port ${config.PORT}`);
+    console.log(`Started on port ${config.PORT}`)
 })
